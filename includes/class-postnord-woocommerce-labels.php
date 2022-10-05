@@ -104,7 +104,7 @@ class Postnord_Woocommerce_Labels
 
             //values from postnord
             $applicationId = 11438;
-            $partyId = "1111111111";
+            $partyId = get_option('postnord_customer_number');
 
             $company_name = get_option('postnord_company_name');
             $address_street = get_option('postnord_address_street');
