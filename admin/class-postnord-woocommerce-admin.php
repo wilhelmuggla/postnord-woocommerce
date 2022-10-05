@@ -124,6 +124,27 @@ class Postnord_Woocommerce_Admin
 			'postnord_woocommerce_general_settings'
 		);
 
+
+
+
+		add_settings_field(
+			'postnord_customer_number',
+			'Postnord Company Number',
+			array($this, 'render_settings_field'),
+			'postnord_woocommerce_general_settings',
+			'postnord_woocommerce_general_section',
+			array(
+				'type'      => 'input',
+				'subtype'   => 'text',
+				'id'    => 'postnord_customer_number',
+				'name'      => 'postnord_customer_number',
+				'required' => 'true',
+				'get_options_list' => '',
+				'value_type' => 'normal',
+				'wp_data' => 'option'
+			)
+		);
+
 		add_settings_field(
 			'postnord_api_key',
 			'Postnord API Key',
@@ -141,6 +162,7 @@ class Postnord_Woocommerce_Admin
 				'wp_data' => 'option'
 			)
 		);
+
 
 		add_settings_field(
 			'postnord_sandbox',
@@ -250,7 +272,7 @@ class Postnord_Woocommerce_Admin
 				'wp_data' => 'option'
 			)
 		);
-		
+
 		add_settings_field(
 			'postnord_wc_status_name',
 			'Autogenerate Label on Status',
@@ -269,7 +291,11 @@ class Postnord_Woocommerce_Admin
 			)
 		);
 
-		
+
+		register_setting(
+			'postnord_woocommerce_general_settings',
+			'postnord_customer_number'
+		);
 
 		register_setting(
 			'postnord_woocommerce_general_settings',
@@ -309,8 +335,6 @@ class Postnord_Woocommerce_Admin
 			'postnord_woocommerce_general_settings',
 			'postnord_wc_status_name'
 		);
-
-		
 	}
 
 	public function postnord_woocommerce_display_general_account()
@@ -367,11 +391,10 @@ class Postnord_Woocommerce_Admin
 		echo '<select name="postnord_wc_status_name">';
 		$order_statuses = wc_get_order_statuses();
 		foreach ($order_statuses as $key => $value) {
-			
-			 echo '<option value="' . $key . '"'.selected(get_option('postnord_wc_status_name'), $key). '">' . $value . '</option>';
+
+			echo '<option value="' . $key . '"' . selected(get_option('postnord_wc_status_name'), $key) . '">' . $value . '</option>';
 		}
 		echo '</select>';
-
 	}
 
 

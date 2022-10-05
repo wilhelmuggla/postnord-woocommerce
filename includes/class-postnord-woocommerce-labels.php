@@ -83,16 +83,7 @@ class Postnord_Woocommerce_Labels
                     ]
                 ]
             );
-        } else return array(
-            "party" => [
-                "nameIdentification" => [
-                    "name" => "consignee"
-                ],
-                "address" => [
-                    "streets" => 'apaapa'
-                ]
-            ]
-        );
+        } 
     }
 
     function generate_label($order_id)
