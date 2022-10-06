@@ -125,6 +125,17 @@ class Postnord_Woocommerce_Admin
 		);
 
 
+		add_settings_section(
+			// ID used to identify this section and with which to register options
+			'postnord_woocommerce_printer_section',
+			// Title to be displayed on the administration page
+			'Printer settings',
+			// Callback used to render the description of the section
+			null,
+			// Page on which to add this section of options
+			'postnord_woocommerce_general_settings'
+		);
+
 
 
 		add_settings_field(
@@ -291,6 +302,23 @@ class Postnord_Woocommerce_Admin
 			)
 		);
 
+		add_settings_field(
+			'postnord_wc_printer_size',
+			'PDF page size for the label',
+			array($this, 'render_wc_printer_size_field'),
+			'postnord_woocommerce_general_settings',
+			'postnord_woocommerce_printer_section',
+			array(
+				'type'      => 'input',
+				'subtype'   => 'select',
+				'id'    => 'postnord_wc_printer_size',
+				'name'      => 'postnord_wc_printer_size',
+				'required' => 'false',
+				'get_options_list' => '',
+				'value_type' => 'normal',
+				'wp_data' => 'option'
+			)
+		);
 
 		register_setting(
 			'postnord_woocommerce_general_settings',
@@ -334,6 +362,11 @@ class Postnord_Woocommerce_Admin
 		register_setting(
 			'postnord_woocommerce_general_settings',
 			'postnord_wc_status_name'
+		);
+
+		register_setting(
+			'postnord_woocommerce_general_settings',
+			'postnord_wc_printer_size'
 		);
 	}
 
@@ -394,6 +427,16 @@ class Postnord_Woocommerce_Admin
 
 			echo '<option value="' . $key . '"' . selected(get_option('postnord_wc_status_name'), $key) . '">' . $value . '</option>';
 		}
+		echo '</select>';
+	}
+
+	public function render_wc_printer_size_field($args)
+	{
+		//Valid values: A4, A5, LABEL
+		echo '<select name="postnord_wc_printer_size">';
+		echo '<option value="A4"' . selected(get_option('postnord_wc_printer_size'), 'A4') . '>A4</option>';
+		echo '<option value="A5"' . selected(get_option('postnord_wc_printer_size'), 'A5') . '>A5</option>';
+		echo '<option value="LABEL"' . selected(get_option('postnord_wc_printer_size'), 'LABEL') . '>Label</option>';
 		echo '</select>';
 	}
 

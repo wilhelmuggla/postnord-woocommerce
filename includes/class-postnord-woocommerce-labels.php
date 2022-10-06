@@ -99,6 +99,8 @@ class Postnord_Woocommerce_Labels
             else
                 $base_url = 'api2.postnord.com';
 
+            //print sizes A4, A5, LABEL
+
             $url = 'https://' . $base_url . '/rest/shipment/v3/edi/labels/pdf?apikey=' . get_option('postnord_api_key') . '&paperSize=A4&rotate=0&multiPDF=false&labelType=standard&pnInfoText=false&labelsPerPage=100&page=1&processOffline=false&storeLabel=false';
             $date = date(DateTime::RFC3339, time());
 
@@ -127,7 +129,7 @@ class Postnord_Woocommerce_Labels
                             "shipmentId" => "0"
                         ],
                         "dateAndTimes" => [
-                            "loadingDate" => "2020-11-26T13:39:59.9125321Z"
+                            "loadingDate" => $date
                         ],
                         "service" => [
                             "basicServiceCode" => "86",
