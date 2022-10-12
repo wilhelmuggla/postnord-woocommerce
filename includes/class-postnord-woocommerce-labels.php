@@ -224,6 +224,7 @@ class Postnord_Woocommerce_Labels
                         update_post_meta($order_id, 'postnord_tracking_id', $tracking_id);
                     }
                 } else {
+                    print_r($response);
                     echo 'Something went wrong when generating the label.';
                 }
             }
@@ -239,6 +240,9 @@ class Postnord_Woocommerce_Labels
         $order_items  = $order->get_items();
         $total_qty    = 0;
         $total_weight = 0;
+
+        //add extra weight
+        $total_weight += get_option('postnord_wc_extra_weight') * 0.001;
 
         foreach ($order_items as $item_id => $product_item) {
             $product = $product_item->get_product();

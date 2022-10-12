@@ -320,6 +320,26 @@ class Postnord_Woocommerce_Admin
 			)
 		);
 
+		add_settings_field(
+			'postnord_wc_extra_weight',
+			'Extra weight',
+			array($this, 'render_settings_field'),
+			'postnord_woocommerce_general_settings',
+			'postnord_woocommerce_printer_section',
+			array(
+				'type'      => 'input',
+				'subtype'   => 'number',
+				'id'    => 'postnord_wc_extra_weight',
+				'name'      => 'postnord_wc_extra_weight',
+				'required' => 'false',
+				'get_options_list' => '',
+				'value_type' => 'normal',
+				'wp_data' => 'option',
+				'append' => 'grams'
+			)
+		);
+
+
 		register_setting(
 			'postnord_woocommerce_general_settings',
 			'postnord_customer_number'
@@ -368,6 +388,12 @@ class Postnord_Woocommerce_Admin
 			'postnord_woocommerce_general_settings',
 			'postnord_wc_printer_size'
 		);
+
+		register_setting(
+			'postnord_woocommerce_general_settings',
+			'postnord_wc_extra_weight'
+		);
+
 	}
 
 	public function postnord_woocommerce_display_general_account()
@@ -406,6 +432,9 @@ class Postnord_Woocommerce_Admin
 						echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '_disabled" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '_disabled" size="40" disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . $args['id'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
 					} else {
 						echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
+					}
+					if(isset($args['append'])){
+						echo '' .$args['append'];
 					}
 					/*<input required="required" '.$disabled.' type="number" step="any" id="'.$this->plugin_name.'_cost2" name="'.$this->plugin_name.'_cost2" value="' . esc_attr( $cost ) . '" size="25" /><input type="hidden" id="'.$this->plugin_name.'_cost" step="any" name="'.$this->plugin_name.'_cost" value="' . esc_attr( $cost ) . '" />*/
 				} else {
