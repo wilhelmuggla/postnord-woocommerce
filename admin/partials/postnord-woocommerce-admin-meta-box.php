@@ -21,12 +21,19 @@
         if ($tracking_id == '') :
             echo 'No shipping label generated';
         else :
+
+    //base url for tracking
+    if (get_option('postnord_sandbox'))
+        $base_url = 'attracking.postnord.com/se';
+    else
+        $base_url = 'tracking.postnord.com/se';
+
         ?>
             <li class="wide">
                 <a href="<?php echo wp_upload_dir()['baseurl'] . '/labels/' . $tracking_id; ?>.pdf" target="_blank">PDF</a>
             </li>
             <li class="wide">
-                <a href="https://attracking.postnord.com/se/?id=<?php echo $tracking_id; ?>" target="_blank"><?php echo $tracking_id; ?></a>
+                <a href="https://<?php echo $base_url; ?>/?id=<?php echo $tracking_id; ?>" target="_blank"><?php echo $tracking_id; ?></a>
             </li>
         <?php endif; ?>
     </ul>
