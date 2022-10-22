@@ -205,7 +205,7 @@ class Postnord_Woocommerce_Labels
 
             if (is_wp_error($response)) {
                 $error_message = $response->get_error_message();
-                echo "Something went wrong: $error_message";
+                 esc_attr_e("Something went wrong: $error_message");
             } else {
                 if ($response['response']['code'] == '200') {
                     $body = json_decode($response['body']);
@@ -220,17 +220,16 @@ class Postnord_Woocommerce_Labels
                     if (file_put_contents(wp_upload_dir()['basedir'] . '/labels/' . $tracking_id . '.pdf', $data))
                         update_post_meta($order_id, 'postnord_tracking_id', $tracking_id);
                     else {
-                        echo 'error saving label';
+                        esc_attr_e('error saving label');
                         update_post_meta($order_id, 'postnord_tracking_id', $tracking_id);
                     }
                 } else {
-                    print_r($response);
-                    echo 'Something went wrong when generating the label.';
+                    esc_attr_e('Something went wrong when generating the label.');
                 }
             }
 
         else :
-            echo 'tracking label already generated';
+            esc_html_e('tracking label already generated');
         endif;
     }
 

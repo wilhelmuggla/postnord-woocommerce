@@ -30,7 +30,7 @@
 
         ?>
             <li class="wide">
-                <a href="<?php echo wp_upload_dir()['baseurl'] . '/labels/' . $tracking_id; ?>.pdf" target="_blank">PDF</a>
+                <a href="<?php echo esc_url(wp_upload_dir()['baseurl'] . '/labels/' . $tracking_id); ?>.pdf" target="_blank">PDF</a>
             </li>
             <li class="wide">
                 <a href="https://<?php echo $base_url; ?>/?id=<?php echo $tracking_id; ?>" target="_blank"><?php echo $tracking_id; ?></a>

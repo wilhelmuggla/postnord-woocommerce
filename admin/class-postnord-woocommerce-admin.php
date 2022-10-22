@@ -393,7 +393,6 @@ class Postnord_Woocommerce_Admin
 			'postnord_woocommerce_general_settings',
 			'postnord_wc_extra_weight'
 		);
-
 	}
 
 	public function postnord_woocommerce_display_general_account()
@@ -405,6 +404,30 @@ class Postnord_Woocommerce_Admin
 	{
 		echo '
 		<p>From address on the labels.</p>';
+	}
+
+	public function allowedHTML()
+	{
+		return array(
+			'input' => array(
+				'type'      => array(),
+				'name'      => array(),
+				'value'     => array(),
+				'checked'   => array(),
+				'step' => array(),
+				'min' => array(),
+				'max' => array(),
+				'required'  => array(),
+				'size'  => array(),
+				'disabled' => 'disabled',
+				'checked' => 'checked'
+
+			),
+			'option' => array(
+				'value' => array(),
+				'selected' => array()
+			)
+		);
 	}
 
 
@@ -429,17 +452,17 @@ class Postnord_Woocommerce_Admin
 					$max = (isset($args['max'])) ? 'max="' . $args['max'] . '"' : '';
 					if (isset($args['disabled'])) {
 						// hide the actual input bc if it was just a disabled input the informaiton saved in the database would be wrong - bc it would pass empty values and wipe the actual information
-						echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '_disabled" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '_disabled" size="40" disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . $args['id'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
+						echo wp_kses($prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '_disabled" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '_disabled" size="40" disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . $args['id'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd, $this->allowedHTML());
 					} else {
-						echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
+						echo wp_kses($prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd, $this->allowedHTML());
 					}
-					if(isset($args['append'])){
-						echo '' .$args['append'];
+					if (isset($args['append'])) {
+						echo esc_attr($args['append']);
 					}
 					/*<input required="required" '.$disabled.' type="number" step="any" id="'.$this->plugin_name.'_cost2" name="'.$this->plugin_name.'_cost2" value="' . esc_attr( $cost ) . '" size="25" /><input type="hidden" id="'.$this->plugin_name.'_cost" step="any" name="'.$this->plugin_name.'_cost" value="' . esc_attr( $cost ) . '" />*/
 				} else {
 					$checked = ($value) ? 'checked' : '';
-					echo '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" name="' . $args['name'] . '" size="40" value="1" ' . $checked . ' />';
+					echo wp_kses('<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" name="' . $args['name'] . '" size="40" value="1" ' . $checked . ' />', $this->allowedHTML);
 				}
 				break;
 			default:
@@ -454,7 +477,7 @@ class Postnord_Woocommerce_Admin
 		$order_statuses = wc_get_order_statuses();
 		foreach ($order_statuses as $key => $value) {
 
-			echo '<option value="' . $key . '"' . selected(get_option('postnord_wc_status_name'), $key) . '">' . $value . '</option>';
+			echo wp_kses('<option value="' . $key . '"' . selected(get_option('postnord_wc_status_name'), $key) . '">' . $value . '</option>', $this->allowedHTML());
 		}
 		echo '</select>';
 	}
@@ -463,9 +486,9 @@ class Postnord_Woocommerce_Admin
 	{
 		//Valid values: A4, A5, LABEL
 		echo '<select name="postnord_wc_printer_size">';
-		echo '<option value="A4"' . selected(get_option('postnord_wc_printer_size'), 'A4') . '>A4</option>';
-		echo '<option value="A5"' . selected(get_option('postnord_wc_printer_size'), 'A5') . '>A5</option>';
-		echo '<option value="LABEL"' . selected(get_option('postnord_wc_printer_size'), 'LABEL') . '>Label</option>';
+		echo wp_kses('<option value="A4"' . selected(get_option('postnord_wc_printer_size'), 'A4') . '>A4</option>', $this->allowedHTML());
+		echo wp_kses('<option value="A5"' . selected(get_option('postnord_wc_printer_size'), 'A5') . '>A5</option>', $this->allowedHTML());
+		echo wp_kses('<option value="LABEL"' . selected(get_option('postnord_wc_printer_size'), 'LABEL') . '>Label</option>', $this->allowedHTML());
 		echo '</select>';
 	}
 
