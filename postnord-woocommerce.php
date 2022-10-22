@@ -13,8 +13,8 @@
  * @package           Postnord_Woocommerce
  *
  * @wordpress-plugin
- * Plugin Name:       PostNord Skicka Direkt - WooCommerce
- * Plugin URI:        https://owlhub.se
+ * Plugin Name:       PostNord Skicka Direkt
+ * Plugin URI:        https://owlhub.se/postnord_woocommerce
  * Description:       Generate PostNord shipping labels automatically in WooCommerce
  * Version:           1.0.0
  * Author:            OwlHub AB
