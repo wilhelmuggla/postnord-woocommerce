@@ -419,7 +419,7 @@ class Postnord_Woocommerce_Admin
 				'max' => array(),
 				'required'  => array(),
 				'size'  => array(),
-				'disabled' => 'disabled',
+				'disabled'=> 'disabled',
 				'checked' => 'checked'
 
 			),
@@ -462,7 +462,7 @@ class Postnord_Woocommerce_Admin
 					/*<input required="required" '.$disabled.' type="number" step="any" id="'.$this->plugin_name.'_cost2" name="'.$this->plugin_name.'_cost2" value="' . esc_attr( $cost ) . '" size="25" /><input type="hidden" id="'.$this->plugin_name.'_cost" step="any" name="'.$this->plugin_name.'_cost" value="' . esc_attr( $cost ) . '" />*/
 				} else {
 					$checked = ($value) ? 'checked' : '';
-					echo wp_kses('<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" name="' . $args['name'] . '" size="40" value="1" ' . $checked . ' />', $this->allowedHTML);
+					echo wp_kses('<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" name="' . $args['name'] . '" size="40" value="1" ' . $checked . ' />', $this->allowedHTML());
 				}
 				break;
 			default:
@@ -477,7 +477,7 @@ class Postnord_Woocommerce_Admin
 		$order_statuses = wc_get_order_statuses();
 		foreach ($order_statuses as $key => $value) {
 
-			echo wp_kses('<option value="' . $key . '"' . selected(get_option('postnord_wc_status_name'), $key) . '">' . $value . '</option>', $this->allowedHTML());
+			echo '<option value="' .esc_attr($key). '"' .esc_attr(selected(get_option('postnord_wc_status_name'), $key)). '">' .esc_attr($value). '</option>';
 		}
 		echo '</select>';
 	}
@@ -486,9 +486,9 @@ class Postnord_Woocommerce_Admin
 	{
 		//Valid values: A4, A5, LABEL
 		echo '<select name="postnord_wc_printer_size">';
-		echo wp_kses('<option value="A4"' . selected(get_option('postnord_wc_printer_size'), 'A4') . '>A4</option>', $this->allowedHTML());
-		echo wp_kses('<option value="A5"' . selected(get_option('postnord_wc_printer_size'), 'A5') . '>A5</option>', $this->allowedHTML());
-		echo wp_kses('<option value="LABEL"' . selected(get_option('postnord_wc_printer_size'), 'LABEL') . '>Label</option>', $this->allowedHTML());
+		echo '<option value="A4"' .esc_attr(selected(get_option('postnord_wc_printer_size'), 'A4')). '>A4</option>';
+		echo '<option value="A5"' . esc_attr(selected(get_option('postnord_wc_printer_size'), 'A5')). '>A5</option>';
+		echo '<option value="LABEL"' . esc_attr(selected(get_option('postnord_wc_printer_size'), 'LABEL')). '>Label</option>';
 		echo '</select>';
 	}
 
